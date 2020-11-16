@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<script>
+			window.onload = function() {
+
+				var chart = new CanvasJS.Chart("chartContainer", {
+					animationEnabled: true,
+					theme: "light2",
+					title: {
+						text: "Number of Movies published every 2 decades"
+					},
+					axisX:{
+							title:"years",
+							//valueFormatString: "YYYY",
+							crosshair: {
+								enabled: true,
+								snapToDataPoint: true
+							}
+						},
+					axisY: {
+						title:"Number of Movies",
+						includeZero: false,
+						crosshair: {
+									enabled: true
+								}
+					},
+					toolTip:{
+							shared:true
+						},  
+					legend:{
+							cursor:"pointer",
+							verticalAlign: "bottom",
+							horizontalAlign: "left",
+							dockInsidePlotArea: true,
+							itemclick: toogleDataSeries
+						},
+					data: [{
+						type: "line",
+						indexLabelFontSize: 16,
+						//xValueFormatString: "YYYY",
+						dataPoints: [{
+								x: 1900,
+								indexLabel: "before 1900",
+								
+								y: 48
+							},
+							{
+								x:1920,
+								y: 22
+							},
+							{
+								x:1940,
+								y: 437
+								
+							},
+							{
+								x:1960,
+								y: 1065
+							},
+							{
+								x:1980,
+								y: 2089
+							},
+							{
+								x:2000,
+								y: 7766
+							},
+							{
+								x:2018,
+								y: 10654
+							}
+						]
+					}]
+				});
+				chart.render();
+function toogleDataSeries(e){
+	if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+		e.dataSeries.visible = false;
+	} else{
+		e.dataSeries.visible = true;
+	}
+	chart.render();
+}
+
+
+			}
+		</script>
+	</head>
+	<body>
+		<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	</body>
+</html>

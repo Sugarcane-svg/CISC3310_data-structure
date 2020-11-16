@@ -1,0 +1,23 @@
+run:
+Film-Noir: 87
+Action: 1828
+Adventure: 1263
+Horror: 978
+Romance: 1596
+War: 382
+Western: 167
+Documentary: 440
+Sci-Fi: 980
+Drama: 4361
+Thriller: 1894
+(no genres listed): 34
+Crime: 1199
+Total: 22084
+Fantasy: 779
+Animation: 611
+IMAX: 158
+Comedy: 3756
+Mystery: 573
+Children: 664
+Musical: 334
+BUILD SUCCESSFUL (total time: 0 seconds)

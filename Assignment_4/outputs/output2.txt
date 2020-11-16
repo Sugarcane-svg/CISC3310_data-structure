@@ -1,0 +1,46 @@
+run:
+Film-Noir: 0
+Action: 165
+Adventure: 117
+Horror: 69
+Romance: 46
+War: 8
+Western: 7
+Documentary: 44
+Sci-Fi: 101
+Drama: 224
+Thriller: 133
+(no genres listed): 14
+Crime: 64
+Total: 1446
+Fantasy: 64
+Animation: 62
+IMAX: 1
+Comedy: 252
+Mystery: 35
+Children: 39
+Musical: 1
+
+The percentage of data for most recent 5 years in this whole data is: 
+Genre Type: percentage
+Adventure: 9.26%
+Animation: 10.15%
+Children: 5.87%
+Comedy: 6.71%
+Fantasy: 8.22%
+Romance: 2.88%
+Drama: 5.14%
+Action: 9.03%
+Crime: 5.34%
+Thriller: 7.02%
+Horror: 7.06%
+Mystery: 6.11%
+Sci-Fi: 10.31%
+War: 2.09%
+Musical: 0.30%
+Documentary: 10.00%
+IMAX: 0.63%
+Western: 4.19%
+Film-Noir: 0.00%
+(no genres listed): 41.18%
+BUILD SUCCESSFUL (total time: 0 seconds)

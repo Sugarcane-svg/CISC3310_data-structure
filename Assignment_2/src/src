@@ -1,0 +1,190 @@
+package musicplaylist;
+
+import java.io.*;
+import java.util.*;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
+
+public class MusicPlayList {
+
+    public static void main(String[] args) throws IOException, CsvValidationException {
+        File folder = new File("data/");
+        String[] allWeeks = listFiles(folder);
+        String[] content = readContent(allWeeks);
+        
+        //checking output
+        /*for(String s : content){
+        System.out.println(s);
+        }*/
+        content=mergeSort(content);
+        /*for(String s : notDuplicated){
+        System.out.println(s);
+        }*/
+        
+        PlayList p = new PlayList();
+        HistoryList h = new HistoryList();
+        Queue<String> songs = new LinkedList<>();
+        songs=playlist(content);
+        for(String s : songs){
+            p.addSong(s);
+            h.addSong(s);
+        }
+        
+        
+        System.out.println ("next song: "+p.listenToSong());
+        
+        System.out.println();
+         System.out.println("last song: "+h.lastListened());
+    }
+    
+    //reduce duplications
+    public static Queue playlist(String[] arr){
+        Queue<String> list = new LinkedList<>();
+        for(String s :arr){
+            if(!list.contains(s)&&!list.isEmpty()){
+                list.add(s);
+            }
+        }
+        return list;
+    }
+    
+    
+    
+
+    //read multiple files in a directory
+    public static String[] listFiles(File folder) {
+        List<String> filenames = new ArrayList<>();
+
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                listFiles(fileEntry);
+            } else {
+                if (fileEntry.getName().contains(".csv")) {
+                    filenames.add(fileEntry.getName());
+                }
+            }
+        }
+        System.out.println(filenames);
+        String[] filename = filenames.toArray(new String[filenames.size()]);
+
+        return filename;
+    }
+
+    //read contents for each files
+    public static String[] readContent(String[] files) throws IOException, CsvValidationException {
+        List<String> content = new ArrayList<>();
+        CSVReader reader = null;
+        String[] line;
+
+        for (int i = 0; i < files.length; i++) {
+            reader = new CSVReader(new FileReader("/Users/phoebe/NetBeansProjects/MusicPlayList/files/" + files[i]));
+            //System.out.println(files[i]+"\n\n");
+
+            while ((line = reader.readNext()) != null) {
+                content.add(line[1]);
+                //System.out.println(content[j]);
+            }//System.out.println();
+        }
+        //System.out.println(content.size());
+    
+        return content.toArray(new String[content.size()]);
+        
+
+    }
+    
+    
+    //recursive mergesort
+    public static String[] mergeSort(String[] arr){
+        String[] a1,a2,c;
+        if(arr.length==1) return arr;
+        else{
+            int m =arr.length/2;
+            a1=new String[m];
+            a2=new String[arr.length-m];
+            for(int i=0;i<arr.length;i++){
+                if(i<a1.length){
+                    a1[i]=arr[i];
+                }else{
+                    a2[i-a1.length]=arr[i];
+                }
+            }
+            
+            c=new String[arr.length];
+            c = merge(mergeSort(a1),mergeSort(a2));
+        }
+        return c;
+        
+    }
+    
+    //merge contents together
+    public static String[] merge(String[] a, String[] b) {
+        String[] c = new String[a.length+b.length];
+        int i=0,j=0,k=0;
+        while(i<a.length && j<b.length){
+            if(a[i].compareTo(b[j])<0){
+                c[k]=a[i];
+                i++;
+            }else{
+                c[k]=b[j];
+                j++;
+            }
+            k++;          
+        }
+        while(i<a.length){
+        c[k]=a[i];
+        i++;k++;
+        }
+        while(j<b.length){
+        c[k]=b[j];
+        j++;k++;
+        }
+        return c;
+    }
+}
+//history list
+public class HistoryList {
+    private Song first;
+    public HistoryList(){first=null;}
+    
+    public void addSong(String s){
+        Song current = new Song(s);
+        current.next=first;
+        first=current;
+        
+    }
+    public String lastListened(){
+        Song current = first;
+        first=current.next;
+        return current.name;
+    }
+}
+//play list
+public class PlayList {
+    private Song first;
+    
+    public PlayList(){first=null;}
+    
+    public void addSong(String s){
+        Song name=new Song(s);
+        if(first!=null){
+            first=name;
+            name.next=first;
+        }
+           
+    }
+    
+    public String listenToSong(){
+        Song current = first;
+        first=current.next;
+        return current.name;
+    }
+    
+    
+}
+//song 
+public class Song {
+    protected String name; //name of song
+    protected Song next;
+    //constructor
+    public Song(String s){name=s;}
+}
